@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+  <testsuites>
+    <testsuite>
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist>
+      <directory suffix=".php">src</directory>
+      <exclude>
+        <directory suffix="Interface.php">src/</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+  <php>
+    <env name="api_client_id" value="YOUR_CLIENT_ID" />
+    <env name="api_client_secret" value="YOUR_CLIENT_SECRET" />
+    <env name="api_endpoint" value="https://uat-purinareg.ansiradigital.com" />
+  </php>
+</phpunit>
