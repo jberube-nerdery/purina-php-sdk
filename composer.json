@@ -13,5 +13,10 @@
     },
     "suggest": {
         "guzzlehttp/guzzle": "HTTP wrapper"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ansira\\Purina\\": "src/"
+        }
     }
 }
