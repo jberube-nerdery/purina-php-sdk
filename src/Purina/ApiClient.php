@@ -197,6 +197,10 @@ class ApiClient
      */
     protected function makeRestfulRequest($uri, $method, array $data = null, array $params = [], array $headers = [])
     {
+        if (!$this->getTokenCache()) {
+            $this->authenticate();
+        }
+
         $options = [];
         $options['query'] = array_merge($params, [ 'access_token' => $this->getAccessToken() ]);
 
