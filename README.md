@@ -5,8 +5,9 @@ The PHP SDK provides an interface for the Ansira Purina RESTful API. It handles 
 
 Sample request to create a new user.
 ```php
-$client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', 'https://profiles.purina.com', [
-    'cache_dir' => '/your/writable/cache/directory'
+$client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', [
+    'endpoint' => 'https://profiles.purina.com',
+    'cache_dir' => '/your/writable/cache/directory',
 ]);
 $userData = [
     'firstName' => 'John',
@@ -61,4 +62,34 @@ $client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', 'https://profile
 ```
 
 For 'cache_dir', you must point to the location of a writable cache directory as the SDK will need to store the OAuth access tokens for the period of their ttl.
+
+Handling Exceptions
+
+```php
+$userData = [
+    'firstName' => 'John',
+    'lastName' => 'Connor',
+    'email' => 'invalidemailaddress%domain.tld',
+    'subscriptions' => [ 'PE', 'PU' ],
+    'sourceCode' => [
+        'keyName' => 'ITSP201511'
+    ],
+    'petOwnershipPlan' => [
+        'keyName' => 'DOG'
+    ],
+    'address' => [
+        'postalCode' => '75001'
+    ],
+];
+try {
+    $response = $client->post('/service/api/v2/users', $userData);
+} catch (\GuzzleHttp\Exception\ClientException $e) {
+    $statusCode = $e->getResponse()->getStatusCode();
+    $body = json_decode($e->getResponse()->getBody());
+    $errorMessage = $body->message;
+}
+```
+
+The SDK wraps the Guzzle HTTP library. Any failed requests will throw an Exception. See [Guzzle Exceptions](http://docs.guzzlephp.org/en/latest/quickstart.html#exceptions)
+
 
