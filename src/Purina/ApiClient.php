@@ -77,6 +77,10 @@ class ApiClient
             $this->cacheDirectory = $options['cache_dir'];
         }
 
+        if ('/' !== substr($this->cacheDirectory, -1)) {
+            $this->cacheDirectory .= '/';
+        }
+
         $clientIdParts = explode('_', $clientId);
         $this->cacheFile = $this->cacheDirectory . $clientIdParts[0] . '_access_token.json';
 
