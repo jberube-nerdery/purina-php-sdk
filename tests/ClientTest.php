@@ -113,7 +113,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ];
         try {
             $response = $client->post('/service/api/v2/users', $userData);
-        } catch (\Exception $e) {
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
             $statusCode = $e->getResponse()->getStatusCode();
         }
         $this->assertEquals(400, $statusCode);
