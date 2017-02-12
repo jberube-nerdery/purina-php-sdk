@@ -47,22 +47,28 @@ class ApiClient
     /**
      * Construct
      *
-     * @param string $endpoint URL for API endpoint
      * @param string $clientId Your provided Client ID
      * @param string $clientSecret Your provided Client Secret
      * @param array $options
+     * array['endpoint'] Your API endpoint
+     * array['cache_dir'] A writeable directory for caching the access token
      * @throws Exception
      */
-    public function __construct($clientId, $clientSecret, $endpoint = 'https://profiles.purina.com', $options = [])
+    public function __construct($clientId, $clientSecret, $options = [])
     {
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
-        $this->guzzleClient = new Client(['base_uri' => $endpoint]);
-        $this->endpoint = $endpoint;
-
         if (empty($clientId) || empty($clientSecret)) {
             throw new \Exception('Missing credentials');
         }
+
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        if (array_key_exists('endpoint', $options)) {
+            $this->endpoint = $options['endpoint'];
+        } else {
+            $this->endpoint = 'https://profiles.purina.com';
+        }
+
+        $this->guzzleClient = new Client(['base_uri' => $this->endpoint]);
 
         if (array_key_exists('cache_dir', $options)) {
             if (!is_writable($this->cacheDirectory)) {
