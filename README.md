@@ -56,14 +56,15 @@ require 'vendor/autoload.php';
 Create an instance of the ApiClient class by injecting your credentials. You will have received these via a provided document.
 
 ```php
-$client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', 'https://profiles.purina.com', [
-    'cache_dir' => '/your/writable/cache/directory'
+$client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', [
+    'endpoint' => 'https://profiles.purina.com',
+    'cache_dir' => '/your/writable/cache/directory',
 ]);
 ```
 
 For 'cache_dir', you must point to the location of a writable cache directory as the SDK will need to store the OAuth access tokens for the period of their ttl.
 
-Handling Exceptions
+## Handling Exceptions
 
 ```php
 $userData = [
