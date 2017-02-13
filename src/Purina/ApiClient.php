@@ -284,7 +284,9 @@ class ApiClient
             if (!empty($contents)) {
                 $json = json_decode($contents);
                 if (!$this->isTokenExpired($json->expires_in)) {
-                    return $json->access_token;
+                    $this->accessToken = $json->access_token;
+
+                    return $this->accessToken;
                 }
             }
         }
