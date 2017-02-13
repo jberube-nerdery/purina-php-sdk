@@ -5,6 +5,8 @@ The PHP SDK provides an interface for the Ansira Purina RESTful API. It handles 
 
 Sample request to create a new user.
 ```php
+use Ansira\Purina\ApiClient;
+
 $client = new ApiClient('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET', [
     'endpoint' => 'https://profiles.purina.com',
     'cache_dir' => '/your/writable/cache/directory',
