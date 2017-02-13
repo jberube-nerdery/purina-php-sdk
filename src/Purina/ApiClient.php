@@ -160,14 +160,15 @@ class ApiClient
      * DELETE call to API
      *
      * @param string $uri Path to resource
+     * @param array $data Array of body data
      * @param array $params Array of query string parameters
      * @param array $headers Array of request headers
      * @return stdClass
      * @throws Exception
      */
-    public function delete($uri, array $params = [], array $headers = [])
+    public function delete($uri, array $data, array $params = [], array $headers = [])
     {
-        return $this->makeRestfulRequest($uri, 'DELETE', null, $params, $headers);
+        return $this->makeRestfulRequest($uri, 'DELETE', $data, $params, $headers);
     }
 
     /**
