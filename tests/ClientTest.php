@@ -284,4 +284,52 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('en', $english->keyName);
     }
 
+    public function testPetExts()
+    {
+        $client = new ApiClient($_ENV['api_client_id'], $_ENV['api_client_secret'], [
+            'endpoint' => $_ENV['api_endpoint'],
+        ]);
+        $email = 'prodtest20170427a@ansira.com';
+        $userData = [
+            'firstName' => 'Aaron',
+            'lastName' => 'Benson',
+            'email' => $email,
+            'subscriptions' => [ 'OD', 'PU' ],
+            'sourceCode' => [
+                'keyName' => 'OD28DayChallenge201707'
+            ],
+            'petOwnershipPlan' => [
+                'keyName' => 'DOG'
+            ],
+            'address' => [
+                'postalCode' => '75001'
+            ],
+            'pets' => [[
+                'name' => 'Sparky',
+                'birthDate' => '2017-01-08',
+                'petType' => [
+                    'keyName' => 'DOG'
+                ],
+                'ext' => [[
+                    'value' => 'Alpo',
+                    'extKey' => [
+                        'name' => 'switching_from_food'
+                    ]
+                ], [
+                    'value' => 'Puppy',
+                    'extKey' => [
+                        'name' => 'nutritional_need'
+                    ]
+                ], [
+                    'value' => 'Healthy Puppy Formula',
+                    'extKey' => [
+                        'name' => 'food_reco'
+                    ]
+               ]
+           ]]]
+        ];
+        $user = $client->post('/service/api/v2/users', $userData);
+        $this->assertEquals($user->email, $email);
+    }
+
 }
